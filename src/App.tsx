@@ -19,6 +19,7 @@ export default function App() {
         <section>
           <h2>React Hook Form</h2>
           <p>Inputs keep their own values. The form renders again only when errors change or you submit.</p>
+          <p>Plan is an MUI Select wired up with Controller, so only that field renders again when you pick one.</p>
           <HookForm key={`hook-${run}`} />
         </section>
       </div>

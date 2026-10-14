@@ -1,7 +1,10 @@
 import { forwardRef, useState, type InputHTMLAttributes } from "react";
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { Controller, useForm, type ControllerRenderProps, type SubmitHandler } from "react-hook-form";
+import { FormControl, FormHelperText, MenuItem, Select } from "@mui/material";
 import { DevTool } from "@hookform/devtools";
 import { useRenderCount, RenderCount, type SignUpValues } from "./shared";
+
+type HookFormValues = SignUpValues & { plan: string };
 
 type FieldProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
@@ -20,17 +23,39 @@ const Field = forwardRef<HTMLInputElement, FieldProps>(function Field({ label, e
   );
 });
 
+function PlanSelect({ field, error }: { field: ControllerRenderProps<HookFormValues, "plan">; error?: string }) {
+  const renders = useRenderCount();
+  const { ref, ...rest } = field;
+  return (
+    <div className="field">
+      Plan (MUI Select)
+      <RenderCount n={renders} />
+      <FormControl size="small" error={Boolean(error)} sx={{ display: "flex", width: 200 }}>
+        <Select {...rest} inputRef={ref} displayEmpty>
+          <MenuItem value="">
+            <em>Choose a plan</em>
+          </MenuItem>
+          <MenuItem value="free">Free</MenuItem>
+          <MenuItem value="pro">Pro</MenuItem>
+          <MenuItem value="team">Team</MenuItem>
+        </Select>
+        {error && <FormHelperText>{error}</FormHelperText>}
+      </FormControl>
+    </div>
+  );
+}
+
 export default function HookForm() {
   const renders = useRenderCount();
-  const [result, setResult] = useState<SignUpValues | null>(null);
+  const [result, setResult] = useState<HookFormValues | null>(null);
   const {
     register,
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignUpValues>({ defaultValues: { name: "", email: "", password: "" } });
+  } = useForm<HookFormValues>({ defaultValues: { name: "", email: "", password: "", plan: "" } });
 
-  const onSubmit: SubmitHandler<SignUpValues> = (data) => setResult(data);
+  const onSubmit: SubmitHandler<HookFormValues> = (data) => setResult(data);
 
   return (
     <>
@@ -60,6 +85,12 @@ export default function HookForm() {
             required: "Use at least 8 characters",
             minLength: { value: 8, message: "Use at least 8 characters" },
           })}
+        />
+        <Controller
+          name="plan"
+          control={control}
+          rules={{ required: "Pick a plan" }}
+          render={({ field, fieldState }) => <PlanSelect field={field} error={fieldState.error?.message} />}
         />
         <button type="submit">Create account</button>
         {result && <pre>{JSON.stringify(result, null, 2)}</pre>}
