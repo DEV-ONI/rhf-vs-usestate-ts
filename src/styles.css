@@ -1,0 +1,207 @@
+:root {
+  --bg: #e9edf3;
+  --panel: #ffffff;
+  --field: #f6f8fb;
+  --ink: #18202e;
+  --muted: #5a6476;
+  --line: #d3d9e3;
+  --state: #b45309;
+  --hook: #0f766e;
+  --flash: #fde68a;
+  --danger: #b91c1c;
+  color-scheme: light;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #10151e;
+    --panel: #171e2a;
+    --field: #131923;
+    --ink: #e3e8f1;
+    --muted: #95a0b3;
+    --line: #2a3444;
+    --state: #f59e0b;
+    --hook: #2dd4bf;
+    --flash: #7c4a0e;
+    --danger: #f87171;
+    color-scheme: dark;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem;
+}
+
+header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  margin-bottom: 1.25rem;
+}
+
+h1 {
+  font-size: 1.35rem;
+  margin: 0;
+  width: 100%;
+}
+
+header p {
+  margin: 0;
+  color: var(--muted);
+  flex: 1;
+}
+
+.ghost {
+  font: inherit;
+  font-size: 0.85rem;
+  background: none;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.panes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.pane {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--accent);
+  border-radius: 10px;
+  padding: 1rem 1.1rem 1.25rem;
+}
+
+.pane.state {
+  --accent: var(--state);
+}
+
+.pane.hook {
+  --accent: var(--hook);
+}
+
+.pane h2 {
+  font-size: 1rem;
+  margin: 0 0 0.2rem;
+}
+
+.why {
+  color: var(--muted);
+  font-size: 0.86rem;
+  margin: 0 0 1rem;
+}
+
+.form-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.82rem;
+  color: var(--muted);
+  padding-bottom: 0.6rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px dashed var(--line);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 0.85rem;
+}
+
+.field-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.86rem;
+  font-weight: 500;
+}
+
+.field input {
+  font: inherit;
+  color: var(--ink);
+  background: var(--field);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.5rem 0.65rem;
+}
+
+.field input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.field input[aria-invalid="true"] {
+  border-color: var(--danger);
+}
+
+.error {
+  color: var(--danger);
+  font-size: 0.8rem;
+}
+
+.renders {
+  font: 500 0.75rem ui-monospace, SFMono-Regular, Menlo, monospace;
+  min-width: 2.2em;
+  text-align: center;
+  padding: 0.05rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  animation: flash 0.7s ease-out;
+}
+
+@keyframes flash {
+  from {
+    background: var(--flash);
+    border-color: var(--accent);
+  }
+  to {
+    background: transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .renders {
+    animation: none;
+  }
+}
+
+form button[type="submit"] {
+  font: inherit;
+  font-weight: 600;
+  background: var(--accent);
+  color: var(--panel);
+  border: 0;
+  border-radius: 6px;
+  padding: 0.55rem 1rem;
+  cursor: pointer;
+}
+
+.result {
+  font-size: 0.78rem;
+  background: var(--field);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+  margin: 0.9rem 0 0;
+  overflow-x: auto;
+}
