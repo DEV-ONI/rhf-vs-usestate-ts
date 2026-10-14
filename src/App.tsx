@@ -7,22 +7,18 @@ export default function App() {
 
   return (
     <main>
-      <header>
-        <h1>useState vs React Hook Form</h1>
-        <p>Type in either form. Each badge counts how many times that component has rendered.</p>
-        <button className="ghost" onClick={() => setRun((r) => r + 1)}>
-          Reset counts
-        </button>
-      </header>
+      <h1>useState vs React Hook Form</h1>
+      <p>Type in either form. The numbers show how many times each component has rendered.</p>
+      <button onClick={() => setRun((r) => r + 1)}>Reset counts</button>
       <div className="panes">
-        <section className="pane state">
+        <section>
           <h2>useState</h2>
-          <p className="why">Each keystroke calls setState in the form, so the form and every field render again.</p>
+          <p>Each keystroke calls setState in the form, so the form and every field render again.</p>
           <StateForm key={`state-${run}`} />
         </section>
-        <section className="pane hook">
+        <section>
           <h2>React Hook Form</h2>
-          <p className="why">Inputs keep their own values. The form renders again only when errors change or you submit.</p>
+          <p>Inputs keep their own values. The form renders again only when errors change or you submit.</p>
           <HookForm key={`hook-${run}`} />
         </section>
       </div>

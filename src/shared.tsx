@@ -13,9 +13,5 @@ export function useRenderCount(): number {
 }
 
 export function RenderCount({ n }: { n: number }) {
-  return (
-    <span key={n} className="renders" title="Times this component has rendered">
-      {n}
-    </span>
-  );
+  return <small> (renders: {n})</small>;
 }

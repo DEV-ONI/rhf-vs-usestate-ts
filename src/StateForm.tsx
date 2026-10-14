@@ -20,10 +20,8 @@ function Field({ label, error, ...props }: FieldProps) {
   const renders = useRenderCount();
   return (
     <label className="field">
-      <span className="field-label">
-        {label}
-        <RenderCount n={renders} />
-      </span>
+      {label}
+      <RenderCount n={renders} />
       <input {...props} aria-invalid={Boolean(error)} />
       {error && <span className="error">{error}</span>}
     </label>
@@ -52,15 +50,15 @@ export default function StateForm() {
 
   return (
     <form onSubmit={onSubmit} noValidate>
-      <div className="form-head">
+      <p>
         Form component
         <RenderCount n={renders} />
-      </div>
+      </p>
       <Field label="Name" name="name" value={values.name} onChange={onChange} error={errors.name} />
       <Field label="Email" name="email" value={values.email} onChange={onChange} error={errors.email} />
       <Field label="Password" name="password" type="password" value={values.password} onChange={onChange} error={errors.password} />
       <button type="submit">Create account</button>
-      {result && <pre className="result">{JSON.stringify(result, null, 2)}</pre>}
+      {result && <pre>{JSON.stringify(result, null, 2)}</pre>}
     </form>
   );
 }
